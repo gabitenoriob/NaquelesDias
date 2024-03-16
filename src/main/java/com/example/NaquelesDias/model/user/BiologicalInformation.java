@@ -30,6 +30,8 @@ public class BiologicalInformation {
     private boolean rhFactor;
     private BigDecimal weight;
 
+
+
     public BiologicalInformation(Date birthday, BiologicalSex biologicalSex,
                                  BloodType bloodType, boolean rhFactor, BigDecimal weight, Gender gender) {
         this.birthday = birthday;
