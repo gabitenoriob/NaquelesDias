@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "pregnancy")
 @Entity(name = "Pregnancy")
 @Getter
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Pregnancy {
 
@@ -18,18 +19,10 @@ public class Pregnancy {
     private int weeks;
     private int user_id;
 
-    public Pregnancy(){
+    public Pregnancy(int id, int weeks, int user_id){
         this.id = id;
-        this.user_id = user_id;
         this.pregnant = false;
         this.weeks = weeks;
-
-    }
-
-    public Pregnancy(int id, boolean pregnant, int weeks, int user_id) {
-        this.id = id;
         this.user_id = user_id;
-        this.pregnant = pregnant;
-        this.weeks = weeks;
     }
 }
