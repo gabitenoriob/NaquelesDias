@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-//import com.example.NaquelesDias.model.bloodcenter.BloodCenterRepository;
 import com.example.NaquelesDias.model.user.AddressInfoRepository;
 import com.example.NaquelesDias.model.user.AddressInformation;
 import com.example.NaquelesDias.model.user.User;
 import com.example.NaquelesDias.model.user.UserRepository;
-//import com.example.NaquelesDias.service.BloodCenterService;
 import com.example.NaquelesDias.service.HealthCenterService;
 import com.example.NaquelesDias.service.security.TokenService;
 
@@ -38,9 +36,10 @@ public class HealthCenterController {
     @Autowired
     private HealthCenterRepository healthCenterRepository;
 
+    // GET ALL HC
     @GetMapping("/list")
     public ResponseEntity<String> getHealthCenterList(@NonNull HttpServletRequest request) {
-        logger.info("-Starting BloodCenters List Getter-");
+        logger.info("-Starting HealthCenters List Getter-");
 
         AddressInformation addressInformation = getUserAddressInfo(request);
         String result = healthCenterService.getHealthCenterList(addressInformation);
@@ -51,6 +50,8 @@ public class HealthCenterController {
     }
 
     //TODO: Fix this because I think is not working properly
+
+    //GET ALL DETAILS FROM ONE HC
     @GetMapping("/detailedList")
     public ResponseEntity<String> getDetailedHealthCenterList(@NonNull HttpServletRequest request) {
         logger.info("-Starting DetailedHealthCenters List Getter-");
@@ -62,17 +63,30 @@ public class HealthCenterController {
         return ResponseEntity.ok(result);
     }
 
-    /*@GetMapping("/{bloodCenterId}/bloodstock")
-    public ResponseEntity<String> getBloodCenterStock(@PathVariable int bloodCenterId) {
-        logger.info("-Starting DetailedBloodCenters List Getter-");
+    // GET ALL DOCTORS WORKING IN A HC
+    @GetMapping("/doctorsList")
+    public ResponseEntity<String> getDoctorsHealthCenterList(@RequestParam("healthCenterId") int healthCenterId) {
+        logger.info("-Starting Doctors Health Center List Getter-");
 
-        logger.info("BloodCenterId: {}", bloodCenterId);
-        String result = bloodCenterService.getBloodCenterStock(bloodCenterId);
+        String result = healthCenterService.getDoctorsHealthCenterList(healthCenterId);
 
-        logger.info("-Success Getting DetailedBloodCenters List-");
+        logger.info("-Success Getting Doctors Health Center List-");
 
         return ResponseEntity.ok(result);
-    }*/
+    }
+
+    // GET ALL CAMPAIGNS FROM A HC
+    @GetMapping("/campaignsList")
+    public ResponseEntity<String> getCampaignsHealthCenterList(@RequestParam("healthCenterId") int healthCenterId) {
+        logger.info("-Starting Campaigns Health Center List Getter-");
+
+        String result = healthCenterService.getCampaignsHealthCenterList(healthCenterId);
+
+        logger.info("-Success Getting Campaigns Health Center List-");
+
+        return ResponseEntity.ok(result);
+    }
+
 
     public AddressInformation getUserAddressInfo(@NonNull HttpServletRequest request) {
         String token = tokenService.recoverToken(request);
@@ -87,23 +101,6 @@ public class HealthCenterController {
         return addressInfoRepository.findById(addressInfoId);
     }
 
-   /* @GetMapping("/mostNeeding")
-    public ResponseEntity<String> getMostNeedingBloodCenter(@NonNull HttpServletRequest request) {
-        logger.info("-Starting Getter-");
 
-        String token = tokenService.recoverToken(request);
-        String userEmail = tokenService.getEmailFromToken(token);
-        User user = (User) userRepository.findByEmail(userEmail);
 
-        String rhFactorType = userRepository.getRhFactorType(user.getId());
-        String signal = (rhFactorType.equals("1")) ? "-" : "+";
-        String userBloodType = userRepository.getBloodType(user.getId(), signal);
-        logger.info("User Blood Type: {}", userBloodType);
-        String result = bloodCenterRepository.getMostNeedingBloodCenter(userBloodType);
-        logger.info("Most Needing Blood Center: {}", result);
-
-        logger.info("-Success Getting Most Needing Blood Center-");
-
-        return ResponseEntity.ok(result);
-    }*/
 }
