@@ -25,6 +25,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: cpf
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
                   name: email
                   type: varchar(36)
                   constraints:
@@ -61,6 +66,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: gender
+                  type: ENUM('cis_women','trans_woman','trans_men')
+                  constraints:
+                    nullable: false
+              - column:
                   name: blood_type
                   type: ENUM('A','B','AB','O')
                   constraints:
@@ -93,7 +103,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: street
-                  type: varchar(32)
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
@@ -119,7 +129,7 @@ databaseChangeLog:
                   name: biological_info_id
                   type: int
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: address_info_id
                   type: int
@@ -140,8 +150,13 @@ databaseChangeLog:
             referencedTableName: address_information
             constraintName: fk_user_address_info
 
+  - changeSet:
+      id: 1
+      author: larissa.santana
+      changes:
+
         - createTable:
-            tableName: donation
+            tableName: period
             columns:
               - column:
                   name: id
@@ -151,18 +166,8 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: blood_center
-                  type: varchar(32)
-                  constraints:
-                    nullable: false
-              - column:
                   name: date
-                  type: datetime
-                  constraints:
-                    nullable: false
-              - column:
-                  name: attendance_doc
-                  type: blob
+                  type: date
                   constraints:
                     nullable: false
               - column:
@@ -173,18 +178,13 @@ databaseChangeLog:
 
         - addForeignKeyConstraint:
             baseColumnNames: user_id
-            baseTableName: donation
+            baseTableName: period
             referencedColumnNames: id
             referencedTableName: user
-            constraintName: fk_user_donation
-
-  - changeSet:
-      id: 1
-      author: larissa.santana
-      changes:
+            constraintName: fk_user_period
 
         - createTable:
-            tableName: blood_center
+            tableName: sexual_relation
             columns:
               - column:
                   name: id
@@ -194,14 +194,93 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: logo
-                  type: blob
+                  name: date
+                  type: datetime
                   constraints:
                     nullable: false
               - column:
-                  name: address_info_id
+                  name: user_id
                   type: int
                   constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: sexual_relation
+            referencedColumnNames: id
+            referencedTableName: user
+            constraintName: fk_user_sexual_relation
+
+        - createTable:
+            tableName: pregnancy
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: pregnancy
+            referencedColumnNames: id
+            referencedTableName: user
+            constraintName: fk_user_pregnancy
+
+        - createTable:
+            tableName: birth_control
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: birth_control
+            referencedColumnNames: id
+            referencedTableName: user
+            constraintName: fk_user_birth_control
+
+  - changeSet:
+      id: 2
+      author: larissa.santana
+      changes:
+
+        - createTable:
+            tableName: heath_center
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
                     nullable: false
               - column:
                   name: name
@@ -219,20 +298,20 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: website
-                  type: varchar(36)
+                  name: address_info_id
+                  type: int
                   constraints:
                     nullable: false
 
         - addForeignKeyConstraint:
             baseColumnNames: address_info_id
-            baseTableName: blood_center
+            baseTableName: heath_center
             referencedColumnNames: id
             referencedTableName: address_information
-            constraintName: fk_blood_center_address_info
+            constraintName: fk_heath_center_address_info
 
         - createTable:
-            tableName: blood_stock
+            tableName: campaigns
             columns:
               - column:
                   name: id
@@ -240,88 +319,15 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(36)
+                  constraints:
                     nullable: false
               - column:
                   name: type
-                  type: varchar(2)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: quantity
-                  type: float
-                  constraints:
-                    nullable: false
-              - column:
-                  name: date
-                  type: date
-                  constraints:
-                    nullable: false
-              - column:
-                  name: blood_center_id
-                  type: int
-                  constraints:
-                    nullable: false
-
-        - addForeignKeyConstraint:
-            baseColumnNames: blood_center_id
-            baseTableName: blood_stock
-            referencedColumnNames: id
-            referencedTableName: blood_center
-            constraintName: fk_blood_center_stock
-
-  - changeSet:
-      id: 2
-      author: larissa.santana
-      changes:
-
-        - modifyDataType:
-            tableName: donation
-            columnName: attendance_doc
-            newDataType: longblob
-
-  - changeSet:
-      id: 3
-      author: larissa.santana
-      changes:
-
-        - modifyDataType:
-            tableName: blood_stock
-            columnName: type
-            newDataType: varchar(3)
-
-  - changeSet:
-      id: 4
-      author: larissa.santana
-      changes:
-
-        - createTable:
-            tableName: email
-            columns:
-              - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: owner_ref
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: email_from
-                  type: varchar(36)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: email_to
-                  type: varchar(36)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: subject
-                  type: varchar(36)
+                  type: ENUM('a','b')
                   constraints:
                     nullable: false
               - column:
@@ -330,22 +336,133 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: send_date
+                  name: attachment
+                  type: longblob
+                  constraints:
+                    nullable: false
+              - column:
+                  name: health_center_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: health_center_id
+            baseTableName: campaigns
+            referencedColumnNames: id
+            referencedTableName: health_center
+            constraintName: fk_health_center
+
+        - createTable:
+            tableName: doctor
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: crm
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
                   type: date
                   constraints:
                     nullable: false
               - column:
-                  name: email_status
-                  type: text
+                  name: field
+                  type: ENUM('anestesiologia', 'cardiologia', 'cirurgia_geral', 'clinica_geral', 'dermatologia', 'endocrinologia', 'ginecologia_obstetricia', 'geriatria', 'medicina_de_emergencia', 'neurologia', 'oftalmologia', 'ortopedia', 'otorrinolaringologia', 'pediatria', 'psiquiatria', 'radiologia', 'urologia')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: health_center_id
+                  type: int
                   constraints:
                     nullable: false
 
-  - changeSet:
-      id: 5
-      author: larissa.santana
-      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: health_center_id
+            baseTableName: doctor
+            referencedColumnNames: id
+            referencedTableName: health_center
+            constraintName: fk_health_center
 
-        - modifyDataType:
-            tableName: address_information
-            columnName: street
-            newDataType: varchar(255)
+        - createTable:
+            tableName: medicine
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ENUM('a','b','c')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: batch
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: health_center_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: health_center_id
+            baseTableName: medicine
+            referencedColumnNames: id
+            referencedTableName: health_center
+            constraintName: fk_health_center
+
+        - createTable:
+            tableName: vaccine
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: ENUM('a','b','c')
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: batch
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: health_center_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: health_center_id
+            baseTableName: vaccine
+            referencedColumnNames: id
+            referencedTableName: health_center
+            constraintName: fk_health_center
