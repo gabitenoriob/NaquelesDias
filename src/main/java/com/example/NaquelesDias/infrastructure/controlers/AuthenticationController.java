@@ -61,6 +61,10 @@ public class AuthenticationController {
         logger.info("BiologicalInfo Blood Type: {}", data.biologicalInfo().getBloodType());
         logger.info("BiologicalInfo Rh Factor: {}", data.biologicalInfo().isRhFactor());
         logger.info("BiologicalInfo Weight: {}", data.biologicalInfo().getWeight());
+        logger.info("BiologicalInfo Gender: {}", data.biologicalInfo().getGender());
+        logger.info("BiologicalInfo Biological Sex: {}", data.biologicalInfo().getBiologicalSex());
+
+
 
         BiologicalInformation biologicalInfo = createBiologicalInfo(data.biologicalInfo());
         this.biologicalInfoRepository.save(biologicalInfo);
@@ -88,7 +92,7 @@ public class AuthenticationController {
 
     private static BiologicalInformation createBiologicalInfo (BiologicalInformation biologicalInfo) {
         return new BiologicalInformation(biologicalInfo.getBirthday(), biologicalInfo.getBiologicalSex(),
-                biologicalInfo.getBloodType(), biologicalInfo.isRhFactor(), biologicalInfo.getWeight());
+                biologicalInfo.getBloodType(), biologicalInfo.isRhFactor(), biologicalInfo.getWeight(), biologicalInfo.getGender());
     }
 
     private static AddressInformation createAddressInfo(AddressInformation addressInfo) {
