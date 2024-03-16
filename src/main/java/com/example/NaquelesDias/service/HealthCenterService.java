@@ -21,7 +21,7 @@ import java.util.Objects;
 @Service
 public class HealthCenterService {
 
-    private final Logger logger = LoggerFactory.getLogger(BloodCenterService.class);
+    private final Logger logger = LoggerFactory.getLogger(HealthCenterService.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

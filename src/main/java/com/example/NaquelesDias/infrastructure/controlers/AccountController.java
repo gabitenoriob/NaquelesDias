@@ -53,9 +53,6 @@ public class AccountController {
         return ResponseEntity.ok(result);
     }
 
-
-
-
     private Date getFormattedDate(Date date) {
         try {
             logger.info("Database date: {}", date);
@@ -76,9 +73,6 @@ public class AccountController {
         calendar.add(Calendar.MONTH, 1);
         return calendar.getTime();
     }
-
-
-
 
     private Date putFormattedDate(Date date) {
         try {
