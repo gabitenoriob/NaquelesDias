@@ -1,26 +1,28 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.user.BiologicalInformation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Blob;
+
 import java.util.Date;
 
-@Table(name = "period")
-@Entity(name = "Period")
+@Table(name = "birth_control")
+@Entity(name = "BirthControl")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Period {
+public class BirthControl {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @DateTimeFormat
-    private Date periodDate;
+    private Date date;
     private int user_id;
+    private boolean use;
 }

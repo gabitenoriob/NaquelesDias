@@ -1,4 +1,4 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.user.BiologicalInformation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

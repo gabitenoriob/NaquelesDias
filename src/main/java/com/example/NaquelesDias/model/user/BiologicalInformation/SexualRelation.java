@@ -1,4 +1,4 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.user.BiologicalInformation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
