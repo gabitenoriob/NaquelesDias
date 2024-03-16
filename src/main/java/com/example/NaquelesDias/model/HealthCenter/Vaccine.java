@@ -1,30 +1,24 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.HealthCenter;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 
-@Table(name = "doctor")
-@Entity(name = "Doctor")
+@Table(name = "vaccine")
+@Entity(name = "Vaccine")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Doctor {
+public class Vaccine {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int crm;
-    @DateTimeFormat
-    private Date date;
-    private  int field;
+    private String name;
+    private  int quantity;
+    private int batch;
     private int health_center_id;
-
-
 }

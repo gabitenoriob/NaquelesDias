@@ -1,4 +1,4 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.HealthCenter;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,20 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
-
-@Table(name = "health_center")
-@Entity(name = "HealthCenter")
+@Table(name = "campaigns")
+@Entity(name = "Campaigns")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class HealthCenter{
+public class Campaigns{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private  String operating_time;
-   private  int phone_number;
-
-
+    private  int type;
+    private  String text;
+    private  String attachment;
 }

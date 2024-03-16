@@ -1,11 +1,10 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.HealthCenter;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 
 @Table(name = "medicine")
@@ -22,6 +21,4 @@ public class Medicine {
     private  int quantity;
     private int batch;
     private int health_center_id;
-
-
 }
