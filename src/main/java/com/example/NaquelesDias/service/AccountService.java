@@ -24,7 +24,7 @@ public class AccountService {
 
     public String getAccountInfoList(int userId) {
         String sql = "SELECT U.firstname, U.lastname, U.email, " +
-                "BI.birthday, BI.biological_sex, BI.blood_type, BI.rh_factor, BI.weight " +
+                "BI.birthday, BI.biological_sex, BI.weight , BI.gender"  +
                 "FROM user U " +
                 "INNER JOIN biological_information BI ON U.biological_info_id = BI.id " +
                 "WHERE U.id = " + userId;
@@ -47,16 +47,15 @@ class AccountInfoRowMapper implements RowMapper<Map<String, Object>> {
 
         String firstname = concat(resultSet.getString("firstname"), " ");
         String name = concat(firstname, resultSet.getString("lastname"));
-        String booleanRhFactor = resultSet.getString("rh_factor");
-        String rhFactor = booleanRhFactor.equals("1") ? "+" : "-";
-        String blood_type = concat(resultSet.getString("blood_type"), rhFactor);
+
+
 
         accountInfo.put("name", name);
         accountInfo.put("email", resultSet.getString("email"));
         accountInfo.put("birthday", resultSet.getString("birthday"));
         accountInfo.put("biological_sex", resultSet.getString("biological_sex"));
-        accountInfo.put("blood_type", blood_type);
         accountInfo.put("weight", resultSet.getString("weight"));
+        accountInfo.put("gender",resultSet.getString("gender"));
 
         return accountInfo;
     }

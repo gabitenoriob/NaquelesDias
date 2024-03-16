@@ -10,10 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.example.NaquelesDias.infrastructure.DTOs.DonationDTO;
-import com.example.NaquelesDias.model.donation.Donation;
-import com.example.NaquelesDias.model.donation.DonationRepository;
 import com.example.NaquelesDias.model.user.User;
 import com.example.NaquelesDias.model.user.UserRepository;
 import com.example.NaquelesDias.service.AccountService;
@@ -40,8 +36,6 @@ public class AccountController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private DonationRepository donationRepository;
-    @Autowired
     private AccountService accountService;
 
     @GetMapping("/list")
@@ -59,40 +53,8 @@ public class AccountController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{userId}/lastDonationDate")
-    public ResponseEntity<Date> getLastDonationDate(@NonNull HttpServletRequest request) {
-        int userId = 0;
-        try {
-            String token = tokenService.recoverToken(request);
-            if (token != null) {
-                String email = tokenService.validateToken(token);
-                User user = (User) userRepository.findByEmail(email);
-                userId = user.getId();
-            }
-            Date lastDonationDate = donationRepository.findLastDonationDateByUserId(userId);
-            return ResponseEntity.ok(getFormattedDate(lastDonationDate));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
 
-    @GetMapping("/{userId}/nextDonationDate")
-    public ResponseEntity<Date> getNextDonationDate(@NonNull HttpServletRequest request) {
-        int userId = 0;
-        try {
-            String token = tokenService.recoverToken(request);
-            if (token != null) {
-                String email = tokenService.validateToken(token);
-                User user = (User) userRepository.findByEmail(email);
-                userId = user.getId();
-            }
-            Date lastDonationDate = donationRepository.findLastDonationDateByUserId(userId);
-            Date nextDonationDate = plusMonths(lastDonationDate);
-            return ResponseEntity.ok(getFormattedDate(nextDonationDate));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
+
 
     private Date getFormattedDate(Date date) {
         try {
@@ -115,46 +77,8 @@ public class AccountController {
         return calendar.getTime();
     }
 
-    @GetMapping("/{userId}/donationQuantity")
-    public ResponseEntity<Integer> getDonationQuantity(@NonNull HttpServletRequest request) {
-        int userId = 0;
-        try {
-            String token = tokenService.recoverToken(request);
-            if (token != null) {
-                String email = tokenService.validateToken(token);
-                User user = (User) userRepository.findByEmail(email);
-                userId = user.getId();
-            }
-            int donationQuantity = donationRepository.getDonationQuantityByUserId(userId);
-            return ResponseEntity.ok(donationQuantity);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
 
-    @PostMapping("/donation")
-    public ResponseEntity<Void> donation(@NonNull HttpServletRequest request,
-                                         @RequestPart("data") DonationDTO data,
-                                         @RequestPart("file") MultipartFile file) {
-        logger.info("-Starting Donation Post-");
 
-        String bloodCenter = data.bloodCenter();
-        Date date = putFormattedDate(data.date());
-        Blob attendanceDoc = transformIntoBlob(file);
-        int userId = getUserIdFromToken(request);
-
-        logger.info("Donation bloodCenter: {}", bloodCenter);
-        logger.info("Donation date: {}", date);
-        logger.info("Donation attendanceDocId: {}", attendanceDoc);
-        logger.info("Donation userId: {}", userId);
-
-        Donation donation = new Donation(bloodCenter, date, attendanceDoc, userId);
-
-        this.donationRepository.save(donation);
-
-        logger.info("-Success Posting Donation-");
-        return ResponseEntity.ok().build();
-    }
 
     private Date putFormattedDate(Date date) {
         try {
