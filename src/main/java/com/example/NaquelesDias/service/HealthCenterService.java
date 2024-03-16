@@ -5,7 +5,7 @@ import com.example.NaquelesDias.model.HealthCenter.Campaigns;
 import com.example.NaquelesDias.model.HealthCenter.CampaignsRepository;
 import com.example.NaquelesDias.model.HealthCenter.Doctor;
 import com.example.NaquelesDias.model.HealthCenter.DoctorRepository;
-import com.example.NaquelesDias.model.user.AddressInformation;
+import com.example.NaquelesDias.model.user.BiologicalInformation.AddressInformation;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.LinkedHashMap;
 
 @Service
 public class HealthCenterService {

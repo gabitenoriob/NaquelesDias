@@ -1,5 +1,6 @@
-package com.example.NaquelesDias.model.user;
+package com.example.NaquelesDias.model.user.AdressInformation;
 
+import com.example.NaquelesDias.model.user.BiologicalInformation.AddressInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,25 +1,25 @@
-package com.example.NaquelesDias.model.bloodcenter;
+package com.example.NaquelesDias.model.user.BiologicalInformation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Table(name = "blood_center")
-@Entity(name = "BloodCenter")
+import java.util.Date;
+
+@Table(name = "period")
+@Entity(name = "Period")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class BloodCenter {
+public class Period {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Long logo;
-    private Long addressInfoId;
-    private String name;
-    private String operatingTime;
-    private int phoneNumber;
-    private String website;
+    @DateTimeFormat
+    private Date periodDate;
+    private int user_id;
 }

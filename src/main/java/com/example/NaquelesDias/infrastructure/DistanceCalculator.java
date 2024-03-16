@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.NaquelesDias.model.location.Coordinates;
-import com.example.NaquelesDias.model.user.AddressInformation;
+import com.example.NaquelesDias.model.user.BiologicalInformation.AddressInformation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,5 +1,9 @@
 package com.example.NaquelesDias.infrastructure.controlers;
 
+import com.example.NaquelesDias.model.user.AdressInformation.AddressInfoRepository;
+import com.example.NaquelesDias.model.user.BiologicalInformation.AddressInformation;
+import com.example.NaquelesDias.model.user.BiologicalInformation.BiologicalInfoRepository;
+import com.example.NaquelesDias.model.user.BiologicalInformation.BiologicalInformation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
