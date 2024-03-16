@@ -1,6 +1,8 @@
 package com.example.NaquelesDias.infrastructure.controlers;
 
 import com.example.NaquelesDias.model.HealthCenter.HealthCenterRepository;
+import com.example.NaquelesDias.model.user.AdressInformation.AddressInfoRepository;
+import com.example.NaquelesDias.model.user.BiologicalInformation.AddressInformation;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.NaquelesDias.model.user.AddressInfoRepository;
-import com.example.NaquelesDias.model.user.AddressInformation;
 import com.example.NaquelesDias.model.user.User;
 import com.example.NaquelesDias.model.user.UserRepository;
 import com.example.NaquelesDias.service.HealthCenterService;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequestMapping("/healthCenter")
 public class HealthCenterController {
 
-    private final Logger logger = LoggerFactory.getLogger(BloodCentersController.class);
+    private final Logger logger = LoggerFactory.getLogger(HealthCenterController.class);
 
     @Autowired
     private TokenService tokenService;
