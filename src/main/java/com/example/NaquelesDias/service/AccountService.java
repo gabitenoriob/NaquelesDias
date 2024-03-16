@@ -23,10 +23,11 @@ public class AccountService {
     private Gson gson = new Gson();
 
     public String getAccountInfoList(int userId) {
-        String sql = "SELECT U.firstname, U.lastname, U.email, " +
-                "BI.birthday, BI.biological_sex, BI.weight , BI.gender, U.levelOfEducation"  +
+        String sql = "SELECT U.firstname, U.lastname, U.email, U.levelOfEducation, " +
+                "BI.birthday, BI.biological_sex, BI.weight , BI.gender" + "AI.street, AI.number, AI.city, AI.state"+
                 "FROM user U " +
                 "INNER JOIN biological_information BI ON U.biological_info_id = BI.id " +
+                "INNER JOIN adress_information AI ON U.adress_info_id = AI.id " +
                 "WHERE U.id = " + userId;
 
         Map<String, Object> accountInfo = jdbcTemplate.queryForObject(sql, new AccountInfoRowMapper());
@@ -53,10 +54,14 @@ class AccountInfoRowMapper implements RowMapper<Map<String, Object>> {
         accountInfo.put("name", name);
         accountInfo.put("email", resultSet.getString("email"));
         accountInfo.put("birthday", resultSet.getString("birthday"));
-        accountInfo.put("biological_sex", resultSet.getString("biological_sex"));
-        accountInfo.put("weight", resultSet.getString("weight"));
-        accountInfo.put("gender",resultSet.getString("gender"));
         accountInfo.put("level_of_education",resultSet.getString("level_of_education"));
+        accountInfo.put("biological_sex", resultSet.getString("biological_sex"));
+        accountInfo.put("gender",resultSet.getString("gender"));
+        accountInfo.put("weight", resultSet.getString("weight"));
+        accountInfo.put("street",resultSet.getString("street"));
+        accountInfo.put("number",resultSet.getString("number"));
+        accountInfo.put("city",resultSet.getString("city"));
+        accountInfo.put("state",resultSet.getString("state"));
 
         return accountInfo;
     }

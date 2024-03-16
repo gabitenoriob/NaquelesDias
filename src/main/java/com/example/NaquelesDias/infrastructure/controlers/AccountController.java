@@ -70,10 +70,10 @@ public class AccountController {
         }
     }
 
-    public Date plusMonths (Date lastDonationDate) {
+    public Date plusMonths (Date lastPeriodDate) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(lastDonationDate);
-        calendar.add(Calendar.MONTH, 3);
+        calendar.setTime(lastPeriodDate);
+        calendar.add(Calendar.MONTH, 1);
         return calendar.getTime();
     }
 
