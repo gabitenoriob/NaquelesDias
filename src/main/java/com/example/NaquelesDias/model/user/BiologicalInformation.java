@@ -24,6 +24,7 @@ public class BiologicalInformation {
     private Date birthday;
     @Enumerated(EnumType.STRING)
     private BiologicalSex biologicalSex;
+    private Gender gender;
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
     private boolean rhFactor;
