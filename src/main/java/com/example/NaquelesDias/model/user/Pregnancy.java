@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "Pregnancy")
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Pregnancy {
 
@@ -25,4 +26,6 @@ public class Pregnancy {
         this.weeks = weeks;
         this.user_id = user_id;
     }
+
+
 }
