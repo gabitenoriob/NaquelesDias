@@ -29,13 +29,14 @@ public class User implements UserDetails {
     private int cpf;
     private String email;
     private String password;
+    private String levelOfEducation;
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private int biologicalInfoId;
     private int addressInfoId;
 
     public User(String firstname, String lastname, int cpf, String email, String password,
-                UserRole role, int biologicalInfoId, int addressInfoId) {
+                UserRole role, int biologicalInfoId, int addressInfoId, String levelOfEducation) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.cpf = cpf;
@@ -44,6 +45,7 @@ public class User implements UserDetails {
         this.role = role;
         this.biologicalInfoId = biologicalInfoId;
         this.addressInfoId = addressInfoId;
+        this.levelOfEducation = levelOfEducation;
     }
 
     @Override
