@@ -26,6 +26,7 @@ public class User implements UserDetails {
     private int id;
     private String firstname;
     private String lastname;
+    private int cpf;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -33,10 +34,11 @@ public class User implements UserDetails {
     private int biologicalInfoId;
     private int addressInfoId;
 
-    public User(String firstname, String lastname, String email, String password,
+    public User(String firstname, String lastname, int cpf, String email, String password,
                 UserRole role, int biologicalInfoId, int addressInfoId) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.cpf = cpf;
         this.email = email;
         this.password = password;
         this.role = role;

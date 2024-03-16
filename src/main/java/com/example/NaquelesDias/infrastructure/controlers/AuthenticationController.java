@@ -98,7 +98,7 @@ public class AuthenticationController {
 
     private static User createUser(User user, int biologicalInfoId, int addressInfoId) {
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        return new User(user.getFirstname(), user.getLastname(), user.getEmail(),
+        return new User(user.getFirstname(), user.getLastname(), user.getCpf(), user.getEmail(),
                 encryptedPassword, user.getRole(), biologicalInfoId, addressInfoId);
     }
 
