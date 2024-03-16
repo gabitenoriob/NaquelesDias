@@ -1,15 +1,12 @@
 package com.example.NaquelesDias.infrastructure.controlers;
 
-import com.example.NaquelesDias.model.HealthCenter.HealthCenterRepository;
+import com.example.NaquelesDias.model.HealthCenter.*;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.NaquelesDias.model.user.AddressInfoRepository;
 import com.example.NaquelesDias.model.user.AddressInformation;
 import com.example.NaquelesDias.model.user.User;
@@ -35,6 +32,10 @@ public class HealthCenterController {
     private HealthCenterService healthCenterService;
     @Autowired
     private HealthCenterRepository healthCenterRepository;
+    @Autowired
+    private DoctorRepository doctorRepository;
+    @Autowired
+    private CampaignsRepository campaignsRepository;
 
     // GET ALL HC
     @GetMapping("/list")
@@ -86,6 +87,47 @@ public class HealthCenterController {
 
         return ResponseEntity.ok(result);
     }
+
+    //POST NEW DOCTOR IN HC
+    @PostMapping("/registerNewDoctor")
+    public ResponseEntity<String> postNewDoctor(@RequestBody Doctor doctor, @RequestParam("healthCenterId") int healthCenterId) {
+        logger.info("-Registering a new Doctor in Health Center-");
+
+        if (!healthCenterRepository.findById(healthCenterId)) {
+            logger.error("Health Center with ID {} not found", healthCenterId);
+            return ResponseEntity.badRequest().body("Health Center with ID " + healthCenterId + " not found");
+        }
+
+        doctor.setHealth_center_id(healthCenterId);
+
+        Doctor savedDoctor = doctorRepository.save(doctor);
+
+        logger.info("-Success Registering a new Doctor in Health Center-");
+
+
+        return ResponseEntity.ok("New Doctor registered with ID: " + savedDoctor.getId());
+    }
+
+    //POST NEW CAMPAIGN IN HC
+    @PostMapping("/registerNewCampaign")
+    public ResponseEntity<String> postNewDoctor(@RequestBody Campaigns campaign, @RequestParam("healthCenterId") int healthCenterId) {
+        logger.info("-Registering a new Campaign in Health Center-");
+
+        if (!healthCenterRepository.findById(healthCenterId)) {
+            logger.error("Health Center with ID {} not found", healthCenterId);
+            return ResponseEntity.badRequest().body("Health Center with ID " + healthCenterId + " not found");
+        }
+
+        campaign.setHealth_center_id(healthCenterId);
+
+        Campaigns savedCampaigns = campaignsRepository.save(campaign);
+
+        logger.info("-Success Registering a new Doctor in Health Center-");
+
+
+        return ResponseEntity.ok("New Doctor registered with ID: " + savedCampaigns.getId());
+    }
+
 
 
     public AddressInformation getUserAddressInfo(@NonNull HttpServletRequest request) {
