@@ -28,15 +28,14 @@ public class EmailController {
     public ResponseEntity<Email> sendEmail(@NonNull HttpServletRequest request) {
         logger.info("-Starting Sending Email-");
 
-        String subject = "Notificação Sangue Amigo";
+        String subject = "Notificação Naqueles Dias";
         String body = "Saudações!\n\n" +
-                        "Você está recebendo esse Email porque habilitou a opção de notificação do SangueAmigo, " +
-                            "site para incentivo e facilitação da doação de sangue.\n" +
-                        "Futuramente, você receberá avisos de quando já está apto a doar novamente e " +
-                            "alertas de estados críticos de estoque para o seu tipo sanguíneo.\n\n" +
+                        "Você está recebendo esse Email porque habilitou a opção de notificação" +
+                " do Naqueles Dias plataforma digital dedicada ao cuidado e à promoção da sua " +
+                "saúde em todas as fases da vida. \n" +
+                        "Futuramente, você receberá informativos personalizados com o seu perfil.\n\n" +
                         "Até breve.\n\n" +
-                        "Larissa Duarte Santana\n" +
-                        "Representante da Equipe Sangue Amigo.";
+                        "Equipe Naqueles Dias.";
 
         String token = tokenService.recoverToken(request);
         String userEmail = tokenService.getEmailFromToken(token);
